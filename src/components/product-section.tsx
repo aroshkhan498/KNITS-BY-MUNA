@@ -11,6 +11,7 @@ interface ProductSectionProps {
   title: string;
   subtitle?: string;
   products: Product[];
+  fallbackProducts?: Product[];
   viewAllHref?: string;
   accentColor?: "primary" | "secondary" | "accent";
 }
@@ -75,9 +76,17 @@ export function ProductSection({
         </motion.div>
 
         {products.length === 0 ? (
-          <div className="text-center py-16 text-muted-foreground">
-            <p>Check back soon for new items! 🌸</p>
-          </div>
+          fallbackProducts && fallbackProducts.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+              {fallbackProducts.map((product, i) => (
+                <ProductCard key={`fallback-${product.id}-${i}`} product={product} index={i} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16 text-muted-foreground">
+              <p>Check back soon for new items! 🌸</p>
+            </div>
+          )
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
             {products.map((product, i) => (

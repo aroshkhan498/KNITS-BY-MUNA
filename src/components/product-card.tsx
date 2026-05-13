@@ -75,7 +75,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           {/* Image Container */}
           <div className="relative aspect-square overflow-hidden bg-muted/20">
             <Image
-              src={imgError ? "/logo.png" : product.imageUrl}
+              src={imgError ? "/logo.png" : (product.imageUrl && product.imageUrl.trim() !== "" ? product.imageUrl : "/logo.png")}
               alt={product.title}
               fill
               className={cn(

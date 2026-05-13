@@ -8,6 +8,7 @@ import { HeroSection } from "@/components/hero-section";
 import { ProductSection } from "@/components/product-section";
 import { InstagramSection } from "@/components/instagram-section";
 import { CTABanner } from "@/components/cta-banner";
+import { Testimonials } from "@/components/testimonials";
 import type { Product } from "@/lib/types";
 import { toProduct } from "@/lib/product-mapper";
 import { shuffle } from "@/lib/utils";
@@ -44,8 +45,8 @@ export default async function Home() {
 
   // Fallback: use sample products if DB returns nothing special
   const displayFeatured = shuffle(
-    featured.length > 0 ? featured : allProducts.slice(0, 8)
-  );
+    featured.length > 0 ? featured : allProducts
+  ).slice(0, 8);
   const displayNew = shuffle(
     newArrivals.length > 0 ? newArrivals : allProducts.slice(0, 4)
   );
@@ -67,6 +68,7 @@ export default async function Home() {
           title="Featured Items"
           subtitle="Our most loved crochet creations"
           products={displayFeatured}
+          fallbackProducts={shuffle(allProducts).slice(0, 8)}
           viewAllHref="/shop?filter=featured"
           accentColor="primary"
         />
@@ -112,6 +114,9 @@ export default async function Home() {
 
         {/* CTA */}
         <CTABanner />
+
+        {/* Testimonials */}
+        <Testimonials />
 
         {/* Instagram Gallery */}
         <InstagramSection />
