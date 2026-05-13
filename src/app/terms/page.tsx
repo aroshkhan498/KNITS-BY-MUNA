@@ -67,7 +67,7 @@ export default function TermsPage() {
               {
                 title: "9. Contact",
                 content:
-                  "For questions about these terms, contact us at knitsbymuna@gmail.com or via Facebook Messenger.",
+                  "For questions about these terms, contact us at munaforayeji1407@gmail.com or via Facebook Messenger.",
               },
             ].map((section) => (
               <section key={section.title}>

@@ -12,10 +12,12 @@ import {
   Menu,
   X,
   Sparkles,
+  Send,
 } from "lucide-react";
 import { useCart } from "./cart-context";
 import { useWishlist } from "./wishlist-context";
-import { cn } from "@/lib/utils";
+import { FacebookIcon, InstagramIcon } from "./icons/social";
+import { cn, generateMessengerUrl } from "@/lib/utils";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -112,7 +114,7 @@ export function Navbar() {
             </nav>
 
             {/* Actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 md:gap-3">
               {/* Search Button */}
               <button
                 onClick={() => setIsSearchOpen(true)}
@@ -160,6 +162,44 @@ export function Navbar() {
                   </motion.span>
                 )}
               </Link>
+
+              {/* Desktop Social Links & CTA */}
+              <div className="hidden lg:flex items-center gap-3 pl-2 border-l border-border/50">
+                {/* Instagram */}
+                <a
+                  href="https://www.instagram.com/knitsbymuna"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow on Instagram"
+                  className="flex items-center justify-center h-10 w-10 rounded-full border border-border/60 hover:border-secondary/50 hover:bg-secondary/10 text-muted-foreground hover:text-secondary transition-all duration-300"
+                >
+                  <InstagramIcon className="h-5 w-5" />
+                </a>
+
+                {/* Facebook */}
+                <a
+                  href="https://www.facebook.com/profile.php?id=61588396945080"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow on Facebook"
+                  className="flex items-center justify-center h-10 w-10 rounded-full border border-border/60 hover:border-primary/50 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300"
+                >
+                  <FacebookIcon className="h-5 w-5" />
+                </a>
+
+                {/* Order via DM Button */}
+                <button
+                  onClick={() => {
+                    const msg = "Hi! I'd like to place an order 💕";
+                    window.open(generateMessengerUrl(msg), "_blank");
+                  }}
+                  className="hidden xl:flex items-center gap-2 px-5 py-2 rounded-full border border-primary/40 bg-primary/5 text-primary font-medium text-sm hover:bg-primary/15 hover:border-primary/60 transition-all duration-300 hover:shadow-[0_0_20px_oklch(0.72_0.25_320/0.2)]"
+                  aria-label="Order via Messenger DM"
+                >
+                  <Send className="h-4 w-4" />
+                  Order via DM
+                </button>
+              </div>
 
               {/* Mobile menu toggle */}
               <button

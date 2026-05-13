@@ -57,7 +57,7 @@ export default function PrivacyPolicyPage() {
               {
                 title: "Contact",
                 content:
-                  "For privacy-related questions, contact us at knitsbymuna@gmail.com or message us on Facebook.",
+                  "For privacy-related questions, contact us at munaforayeji1407@gmail.com or message us on Facebook.",
               },
             ].map((section) => (
               <section key={section.title}>

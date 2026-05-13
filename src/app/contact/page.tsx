@@ -78,15 +78,15 @@ export default function ContactPage() {
                     {
                       icon: Mail,
                       label: "Email",
-                      value: "knitsbymuna@gmail.com",
-                      href: "mailto:knitsbymuna@gmail.com",
+                      value: "munaforayeji1407@gmail.com",
+                      href: "mailto:munaforayeji1407@gmail.com",
                       color: "text-accent",
                       bg: "bg-accent/10 border-accent/30",
                     },
                     {
                       icon: MapPin,
                       label: "Location",
-                      value: "Bangladesh",
+                      value: "Dhaka, Dhaka, Bangladesh, 1362",
                       href: null,
                       color: "text-muted-foreground",
                       bg: "bg-muted/10 border-border",

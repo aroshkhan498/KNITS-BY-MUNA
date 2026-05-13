@@ -22,6 +22,7 @@ export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart, total } = useCart();
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
+  const [customerAddress, setCustomerAddress] = useState("");
   const [notes, setNotes] = useState("");
   const [isOrdering, setIsOrdering] = useState(false);
 
@@ -29,9 +30,22 @@ export default function CartPage() {
 
   const handleOrder = () => {
     if (items.length === 0) return;
+
+    if (!customerAddress.trim()) {
+      toast.error("Please add your delivery address before ordering.");
+      return;
+    }
+
     setIsOrdering(true);
 
-    const msg = generateOrderMessage(items, total, customerName || undefined, notes || undefined);
+    const msg = generateOrderMessage(
+      items,
+      total,
+      customerName || undefined,
+      customerPhone || undefined,
+      customerAddress || undefined,
+      notes || undefined
+    );
     const url = generateMessengerUrl(msg);
     window.open(url, "_blank");
 
@@ -200,7 +214,7 @@ export default function CartPage() {
                   {/* Customer Info */}
                   <div className="space-y-3">
                     <p className="text-xs uppercase tracking-widest text-muted-foreground font-medium">
-                      Your Info (Optional)
+                      Your Info
                     </p>
                     <input
                       type="text"
@@ -217,6 +231,14 @@ export default function CartPage() {
                       onChange={(e) => setCustomerPhone(e.target.value)}
                       id="cart-customer-phone"
                       className="w-full h-10 px-3 text-sm rounded-xl border border-border bg-background focus:outline-none focus:border-primary transition-colors"
+                    />
+                    <textarea
+                      placeholder="Delivery address *"
+                      value={customerAddress}
+                      onChange={(e) => setCustomerAddress(e.target.value)}
+                      rows={3}
+                      id="cart-customer-address"
+                      className="w-full px-3 py-2 text-sm rounded-xl border border-border bg-background focus:outline-none focus:border-primary transition-colors resize-none"
                     />
                     <textarea
                       placeholder="Any special notes..."

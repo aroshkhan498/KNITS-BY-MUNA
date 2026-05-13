@@ -64,6 +64,7 @@ export type OrderMessage = {
   total: number;
   customerName?: string;
   customerPhone?: string;
+  customerAddress?: string;
   notes?: string;
 };
 
@@ -71,12 +72,26 @@ export function generateOrderMessage(
   items: CartItem[],
   total: number,
   customerName?: string,
+  customerPhone?: string,
+  customerAddress?: string,
   notes?: string
 ): string {
   let message = "Hello Knits by Muna!\n\nI'd like to place an order:\n\n";
 
   if (customerName) {
     message += `Name: ${customerName}\n\n`;
+  }
+
+  if (customerPhone) {
+    message += `Phone: ${customerPhone}\n`;
+  }
+
+  if (customerAddress) {
+    message += `Address: ${customerAddress}\n`;
+  }
+
+  if (customerPhone || customerAddress) {
+    message += "\n";
   }
 
   message += "Order Details:\n";

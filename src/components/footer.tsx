@@ -51,15 +51,15 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-1 text-sm text-muted-foreground mb-4">
               <MapPin className="h-4 w-4 text-primary shrink-0" />
-              <span>Bangladesh</span>
+              <span>Dhaka, Dhaka, Bangladesh, 1362</span>
             </div>
             <div className="flex items-center gap-1 text-sm text-muted-foreground mb-6">
               <Mail className="h-4 w-4 text-primary shrink-0" />
               <a
-                href="mailto:knitsbymuna@gmail.com"
+                href="mailto:munaforayeji1407@gmail.com"
                 className="hover:text-primary transition-colors"
               >
-                knitsbymuna@gmail.com
+                munaforayeji1407@gmail.com
               </a>
             </div>
 
