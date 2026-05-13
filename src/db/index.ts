@@ -1,5 +1,14 @@
-import { drizzle } from 'drizzle-orm/vercel-postgres';
-import { sql } from '@vercel/postgres';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import pg from 'pg';
 import * as schema from './schema';
 
-export const db = drizzle(sql, { schema });
+const connectionString = process.env.POSTGRES_URL ?? process.env.POSTGRES_URL_NON_POOLING;
+
+const pool = new pg.Pool({
+  connectionString,
+  ssl: connectionString?.includes('localhost')
+    ? false
+    : { rejectUnauthorized: false },
+});
+
+export const db = drizzle(pool, { schema });
