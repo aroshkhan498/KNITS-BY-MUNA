@@ -9,7 +9,6 @@ import { ProductSection } from "@/components/product-section";
 import { CategoriesSection } from "@/components/categories-section";
 import { InstagramSection } from "@/components/instagram-section";
 import { CTABanner } from "@/components/cta-banner";
-import { SAMPLE_PRODUCTS } from "@/lib/types";
 import type { Product } from "@/lib/types";
 
 export const metadata: Metadata = {
@@ -39,7 +38,7 @@ async function getProducts(): Promise<Product[]> {
       tags: [],
     }));
   } catch {
-    return SAMPLE_PRODUCTS;
+    return [];
   }
 }
 

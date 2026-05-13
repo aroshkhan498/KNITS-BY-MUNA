@@ -4,7 +4,6 @@ import { db } from "@/db";
 import { products } from "@/db/schema";
 import { desc } from "drizzle-orm";
 import { ShopClient } from "@/components/shop-client";
-import { SAMPLE_PRODUCTS } from "@/lib/types";
 import type { Product } from "@/lib/types";
 
 export const metadata: Metadata = {
@@ -34,7 +33,7 @@ async function getAllProducts(): Promise<Product[]> {
       tags: [],
     }));
   } catch {
-    return SAMPLE_PRODUCTS;
+    return [];
   }
 }
 

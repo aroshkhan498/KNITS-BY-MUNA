@@ -26,10 +26,7 @@ export default async function AdminDashboard() {
     allProducts = await db.select().from(products).orderBy(desc(products.createdAt));
     dbConnected = true;
   } catch {
-    allProducts = [
-      { id: "1", title: "Sunflower Charm", price: "15.00", discountedPrice: "12.00", imageUrl: "/logo.png", inStock: true, createdAt: new Date() },
-      { id: "2", title: "Cherry Keychain", price: "10.00", discountedPrice: null, imageUrl: "/logo.png", inStock: true, createdAt: new Date() },
-    ];
+    allProducts = [];
   }
 
   const totalProducts = allProducts.length;
@@ -42,7 +39,7 @@ export default async function AdminDashboard() {
       {!dbConnected && (
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 text-sm">
           <AlertCircle className="h-4 w-4 shrink-0" />
-          Database not connected. Showing sample data. Set up your POSTGRES_URL environment variable.
+          Database not connected. Set up POSTGRES_URL and run the database schema before adding products.
         </div>
       )}
 

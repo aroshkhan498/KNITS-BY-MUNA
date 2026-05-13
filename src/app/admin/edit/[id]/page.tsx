@@ -11,19 +11,6 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
   if (process.env.POSTGRES_URL) {
     const result = await db.select().from(products).where(eq(products.id, resolvedParams.id)).limit(1);
     product = result[0];
-  } else {
-    // Mock data if no DB
-    if (resolvedParams.id === "1") {
-      product = {
-        id: "1",
-        title: "Sunflower Charm",
-        description: "A beautiful handmade crochet sunflower charm.",
-        price: 15.0,
-        discountedPrice: 12.0,
-        imageUrl: "/logo.png",
-        inStock: true,
-      };
-    }
   }
 
   if (!product) {

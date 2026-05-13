@@ -4,7 +4,6 @@ import { products } from "@/db/schema";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ProductSection } from "@/components/product-section";
-import { SAMPLE_PRODUCTS } from "@/lib/types";
 import type { Product } from "@/lib/types";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -71,10 +70,7 @@ async function getCategoryProducts(categorySlug: string): Promise<Product[]> {
       tags: [categorySlug],
     }));
   } catch {
-    return SAMPLE_PRODUCTS.filter((p) =>
-      p.tags?.includes(categorySlug) ||
-      p.title.toLowerCase().includes(categorySlug.replace("-", " "))
-    );
+    return [];
   }
 }
 
@@ -84,7 +80,6 @@ export default async function CategoryPage({ params }: Props) {
   if (!meta) notFound();
 
   const categoryProducts = await getCategoryProducts(slug);
-  const fallbackProducts = categoryProducts.length === 0 ? SAMPLE_PRODUCTS.slice(0, 6) : categoryProducts;
 
   return (
     <>
@@ -114,7 +109,7 @@ export default async function CategoryPage({ params }: Props) {
 
         <ProductSection
           title={`All ${meta.name}`}
-          products={fallbackProducts}
+          products={categoryProducts}
           viewAllHref="/shop"
           accentColor="primary"
         />

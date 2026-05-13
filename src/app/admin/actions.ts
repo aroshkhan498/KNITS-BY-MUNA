@@ -8,6 +8,10 @@ import { eq } from "drizzle-orm";
 
 export async function saveProduct(formData: FormData) {
   try {
+    if (!process.env.POSTGRES_URL) {
+      return { error: "Database is not configured. Add POSTGRES_URL before saving products." };
+    }
+
     const id = formData.get("id") as string | null;
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
@@ -23,13 +27,13 @@ export async function saveProduct(formData: FormData) {
 
     if (imageFile && imageFile.size > 0) {
       if (!process.env.BLOB_READ_WRITE_TOKEN) {
-        imageUrl = "/logo.png";
-      } else {
-        const blob = await put(`products/${Date.now()}-${imageFile.name}`, imageFile, {
-          access: "public",
-        });
-        imageUrl = blob.url;
+        return { error: "Image storage is not configured. Add BLOB_READ_WRITE_TOKEN before uploading products." };
       }
+
+      const blob = await put(`products/${Date.now()}-${imageFile.name}`, imageFile, {
+        access: "public",
+      });
+      imageUrl = blob.url;
     }
 
     if (id) {
@@ -43,22 +47,20 @@ export async function saveProduct(formData: FormData) {
       };
       if (imageUrl) updateData.imageUrl = imageUrl;
 
-      if (process.env.POSTGRES_URL) {
-        await db.update(products).set(updateData).where(eq(products.id, id));
-      }
+      await db.update(products).set(updateData).where(eq(products.id, id));
     } else {
-      if (!imageUrl) imageUrl = "/logo.png";
-
-      if (process.env.POSTGRES_URL) {
-        await db.insert(products).values({
-          title,
-          description,
-          price: price.toString(),
-          discountedPrice: discountedPrice ? discountedPrice.toString() : null,
-          imageUrl,
-          inStock,
-        });
+      if (!imageUrl) {
+        return { error: "Please choose a real product image before saving." };
       }
+
+      await db.insert(products).values({
+        title,
+        description,
+        price: price.toString(),
+        discountedPrice: discountedPrice ? discountedPrice.toString() : null,
+        imageUrl,
+        inStock,
+      });
     }
 
     revalidatePath("/");
@@ -73,9 +75,11 @@ export async function saveProduct(formData: FormData) {
 
 export async function deleteProduct(id: string) {
   try {
-    if (process.env.POSTGRES_URL) {
-      await db.delete(products).where(eq(products.id, id));
+    if (!process.env.POSTGRES_URL) {
+      return { error: "Database is not configured. Add POSTGRES_URL before deleting products." };
     }
+
+    await db.delete(products).where(eq(products.id, id));
     revalidatePath("/");
     revalidatePath("/shop");
     revalidatePath("/admin");

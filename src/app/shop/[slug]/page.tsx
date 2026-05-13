@@ -4,7 +4,6 @@ import { db } from "@/db";
 import { products } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { ProductDetailClient } from "@/components/product-detail-client";
-import { SAMPLE_PRODUCTS } from "@/lib/types";
 import type { Product } from "@/lib/types";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -33,8 +32,7 @@ async function getProduct(slug: string): Promise<Product | null> {
       tags: [],
     };
   } catch {
-    // Fall back to sample data
-    return SAMPLE_PRODUCTS.find((p) => p.slug === slug || p.id === slug) ?? null;
+    return null;
   }
 }
 
@@ -78,7 +76,7 @@ export default async function ProductPage({ params }: Props) {
         tags: [],
       }));
   } catch {
-    related = SAMPLE_PRODUCTS.filter((p) => p.id !== product.id).slice(0, 4);
+    related = [];
   }
 
   return (
