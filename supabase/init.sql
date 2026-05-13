@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS categories (
 );
 
 CREATE TABLE IF NOT EXISTS products (
-  id text PRIMARY KEY,
+  id serial PRIMARY KEY,
   title text NOT NULL,
   description text NOT NULL,
   price numeric(10, 2) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS products (
 
 CREATE TABLE IF NOT EXISTS product_images (
   id text PRIMARY KEY,
-  product_id text NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+  product_id integer NOT NULL REFERENCES products(id) ON DELETE CASCADE,
   image_url text NOT NULL,
   sort_order integer NOT NULL DEFAULT 0,
   created_at timestamp NOT NULL DEFAULT now()
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS inquiries (
   customer_name text NOT NULL,
   customer_phone text,
   message text NOT NULL,
-  product_id text REFERENCES products(id),
+  product_id integer REFERENCES products(id),
   status text NOT NULL DEFAULT 'new',
   created_at timestamp NOT NULL DEFAULT now()
 );

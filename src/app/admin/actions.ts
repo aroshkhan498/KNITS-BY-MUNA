@@ -8,8 +8,8 @@ import { eq } from "drizzle-orm";
 
 export async function saveProduct(formData: FormData) {
   try {
-    if (!process.env.POSTGRES_URL && !process.env.POSTGRES_URL_NON_POOLING) {
-      return { error: "Database is not configured. Add POSTGRES_URL before saving products." };
+    if (!process.env.POSTGRES_URL && !process.env.POSTGRES_URL_NON_POOLING && !process.env.DATABASE_URL) {
+      return { error: "Database is not configured. Add POSTGRES_URL (or DATABASE_URL) before saving products." };
     }
 
     const id = formData.get("id") as string | null;
@@ -75,8 +75,8 @@ export async function saveProduct(formData: FormData) {
 
 export async function deleteProduct(id: string) {
   try {
-    if (!process.env.POSTGRES_URL && !process.env.POSTGRES_URL_NON_POOLING) {
-      return { error: "Database is not configured. Add POSTGRES_URL before deleting products." };
+    if (!process.env.POSTGRES_URL && !process.env.POSTGRES_URL_NON_POOLING && !process.env.DATABASE_URL) {
+      return { error: "Database is not configured. Add POSTGRES_URL (or DATABASE_URL) before deleting products." };
     }
 
     await db.delete(products).where(eq(products.id, Number(id)));

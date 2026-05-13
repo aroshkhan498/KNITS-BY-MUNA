@@ -8,7 +8,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
   let product = null;
   const resolvedParams = await params;
   
-  if (process.env.POSTGRES_URL) {
+  if (process.env.POSTGRES_URL || process.env.POSTGRES_URL_NON_POOLING || process.env.DATABASE_URL) {
     const result = await db.select().from(products).where(eq(products.id, Number(resolvedParams.id))).limit(1);
     product = result[0];
   }

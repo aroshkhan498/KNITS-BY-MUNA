@@ -21,12 +21,16 @@ export const dynamic = "force-dynamic";
 export default async function AdminDashboard() {
   let allProducts: any[] = [];
   let dbConnected = false;
+  let dbErrorMessage = "";
 
   try {
     allProducts = await db.select().from(products).orderBy(desc(products.createdAt));
     dbConnected = true;
-  } catch {
+  } catch (error: any) {
     allProducts = [];
+    dbErrorMessage =
+      error?.message ||
+      "Unknown database error. Check connection string and schema.";
   }
 
   const totalProducts = allProducts.length;
@@ -39,7 +43,10 @@ export default async function AdminDashboard() {
       {!dbConnected && (
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 text-sm">
           <AlertCircle className="h-4 w-4 shrink-0" />
-          Database not connected. Set up POSTGRES_URL and run the database schema before adding products.
+          <div className="space-y-0.5">
+            <p>Database query failed. Check your connection string and run the database schema.</p>
+            <p className="text-xs text-yellow-400/80">{dbErrorMessage}</p>
+          </div>
         </div>
       )}
 
