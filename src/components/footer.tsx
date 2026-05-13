@@ -6,7 +6,6 @@ import { FacebookIcon, InstagramIcon } from "@/components/icons/social";
 const footerLinks = {
   shop: [
     { href: "/shop", label: "All Products" },
-    { href: "/categories", label: "Categories" },
     { href: "/shop?filter=new", label: "New Arrivals" },
     { href: "/shop?filter=sale", label: "Sale Items" },
     { href: "/custom-order", label: "Custom Order" },

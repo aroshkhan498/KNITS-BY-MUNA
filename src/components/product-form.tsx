@@ -7,9 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { createCategory, saveProduct } from "@/app/admin/actions";
+import { saveProduct } from "@/app/admin/actions";
 import { toast } from "sonner";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 type CategoryOption = {
   id: string;
@@ -29,12 +29,11 @@ export function ProductForm({
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [isDiscounted, setIsDiscounted] = useState(!!initialData?.discountedPrice);
-  const [categoryMode, setCategoryMode] = useState(
-    initialData?.categoryId || categories.length > 0 ? "existing" : "new"
-  );
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string>(initialData?.categoryId || categories[0]?.id || "");
-  const [newCategoryName, setNewCategoryName] = useState("");
-  const [newCategoryDescription, setNewCategoryDescription] = useState("");
+  // categories are intentionally hidden across the app; keep placeholders
+  const [categoryMode] = useState<string | null>(null);
+  const [selectedCategoryId] = useState<string>("");
+  const [newCategoryName] = useState("");
+  const [newCategoryDescription] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,33 +44,7 @@ export function ProductForm({
       formData.set("image", file);
     }
 
-    if (categoryMode === "existing") {
-      if (!selectedCategoryId) {
-        toast.error("Please select a category or add a new one.");
-        setLoading(false);
-        return;
-      }
-      formData.set("categoryId", selectedCategoryId);
-    } else {
-      if (!newCategoryName.trim()) {
-        toast.error("Please enter a new category name.");
-        setLoading(false);
-        return;
-      }
-
-      const categoryFormData = new FormData();
-      categoryFormData.set("name", newCategoryName.trim());
-      categoryFormData.set("description", newCategoryDescription.trim());
-
-      const categoryResult = await createCategory(categoryFormData);
-      if (categoryResult.error || !categoryResult.categoryId) {
-        toast.error(categoryResult.error || "Failed to create category");
-        setLoading(false);
-        return;
-      }
-
-      formData.set("categoryId", categoryResult.categoryId);
-    }
+    // Category fields hidden — do not include categoryId in product payload
     
     if (initialData?.id) {
       formData.set("id", initialData.id);
@@ -152,79 +125,7 @@ export function ProductForm({
             </div>
           </div>
 
-          <div className="space-y-3 rounded-2xl border border-border bg-muted/20 p-4">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <Label className="text-base font-semibold">Category</Label>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Choose an existing category or create a new one while saving the product.
-                </p>
-              </div>
-              <div className="inline-flex rounded-full border border-border bg-background p-1 text-sm">
-                <button
-                  type="button"
-                  onClick={() => setCategoryMode("existing")}
-                  className={`px-3 py-1.5 rounded-full transition-all ${categoryMode === "existing" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
-                >
-                  Existing
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setCategoryMode("new")}
-                  className={`px-3 py-1.5 rounded-full transition-all ${categoryMode === "new" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
-                >
-                  Add New
-                </button>
-              </div>
-            </div>
-
-            {categoryMode === "existing" ? (
-              <div className="space-y-2">
-                <Label htmlFor="categoryId">Select Category</Label>
-                <select
-                  id="categoryId"
-                  value={selectedCategoryId}
-                  onChange={(e) => setSelectedCategoryId(e.target.value)}
-                  className="w-full h-11 rounded-md border border-border bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                >
-                  <option value="">Select a category</option>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
-                {categories.length === 0 && (
-                  <p className="text-xs text-muted-foreground">
-                    No categories exist yet. Switch to Add New to create one.
-                  </p>
-                )}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="newCategoryName">New Category Name</Label>
-                  <Input
-                    id="newCategoryName"
-                    value={newCategoryName}
-                    onChange={(e) => setNewCategoryName(e.target.value)}
-                    placeholder="e.g. Keychains"
-                    className="border-border focus-visible:ring-primary"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="newCategoryDescription">Category Description</Label>
-                  <Input
-                    id="newCategoryDescription"
-                    value={newCategoryDescription}
-                    onChange={(e) => setNewCategoryDescription(e.target.value)}
-                    placeholder="Short description"
-                    className="border-border focus-visible:ring-primary"
-                  />
-                </div>
-              </div>
-            )}
-          </div>
+          {/* Category fields intentionally hidden across the app */}
 
           <div className="space-y-2">
             <Label htmlFor="image">Product Image</Label>

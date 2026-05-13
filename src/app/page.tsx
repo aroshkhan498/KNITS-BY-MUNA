@@ -6,7 +6,6 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { HeroSection } from "@/components/hero-section";
 import { ProductSection } from "@/components/product-section";
-import { CategoriesSection } from "@/components/categories-section";
 import { InstagramSection } from "@/components/instagram-section";
 import { CTABanner } from "@/components/cta-banner";
 import type { Product } from "@/lib/types";
@@ -61,8 +60,7 @@ export default async function Home() {
       <main>
         <HeroSection />
 
-        {/* Categories */}
-        <CategoriesSection />
+        {/* Categories hidden */}
 
         {/* Featured Products */}
         <ProductSection

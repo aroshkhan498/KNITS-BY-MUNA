@@ -9,15 +9,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import type { Product } from "@/lib/types";
 
-const CATEGORIES = [
-  "All",
-  "Keychains",
-  "Bag Charms",
-  "Phone Charms",
-  "Mini Bouquets",
-  "Home Décor",
-  "Gift Sets",
-];
+const CATEGORIES = ["All"];
 
 const SORT_OPTIONS = [
   { value: "newest", label: "Newest First" },
@@ -98,11 +90,7 @@ export function ShopClient({ products, dbErrorMessage }: ShopClientProps) {
     return result;
   }, [products, searchQuery, selectedCategory, sortBy, showOnlyInStock, showOnlySale, initialFilter]);
 
-  const activeFilterCount = [
-    showOnlySale,
-    showOnlyInStock,
-    selectedCategory !== "All",
-  ].filter(Boolean).length;
+  const activeFilterCount = [showOnlySale, showOnlyInStock].filter(Boolean).length;
 
   return (
     <>
@@ -236,27 +224,7 @@ export function ShopClient({ products, dbErrorMessage }: ShopClientProps) {
                 className="overflow-hidden"
               >
                 <div className="glass-card rounded-2xl p-5 mb-6 flex flex-wrap gap-6">
-                  {/* Category Filter */}
-                  <div>
-                    <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2 font-medium">
-                      Category
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {CATEGORIES.map((cat) => (
-                        <button
-                          key={cat}
-                          onClick={() => setSelectedCategory(cat)}
-                          className={`px-3 py-1.5 text-xs rounded-lg border font-medium transition-all ${
-                            selectedCategory === cat
-                              ? "border-primary bg-primary/10 text-primary"
-                              : "border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
-                          }`}
-                        >
-                          {cat}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                  {/* Category filter hidden */}
 
                   {/* Toggle Filters */}
                   <div>

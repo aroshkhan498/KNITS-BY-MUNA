@@ -22,7 +22,6 @@ import { cn, generateMessengerUrl } from "@/lib/utils";
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
-  { href: "/categories", label: "Categories" },
   { href: "/about", label: "About" },
   { href: "/custom-order", label: "Custom Order" },
   { href: "/contact", label: "Contact" },
