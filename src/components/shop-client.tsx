@@ -28,9 +28,10 @@ const SORT_OPTIONS = [
 
 interface ShopClientProps {
   products: Product[];
+  dbErrorMessage?: string | null;
 }
 
-export function ShopClient({ products }: ShopClientProps) {
+export function ShopClient({ products, dbErrorMessage }: ShopClientProps) {
   const searchParams = useSearchParams();
   const initialSearch = searchParams.get("search") ?? "";
   const initialFilter = searchParams.get("filter") ?? "all";
@@ -133,6 +134,18 @@ export function ShopClient({ products }: ShopClientProps) {
         </div>
 
         <div className="container mx-auto px-4 py-8">
+          {dbErrorMessage && (
+            <div className="mb-6 flex items-start gap-3 rounded-2xl border border-yellow-500/30 bg-yellow-500/10 px-4 py-3 text-sm text-yellow-200">
+              <Filter className="mt-0.5 h-4 w-4 shrink-0 text-yellow-400" />
+              <div className="space-y-0.5">
+                <p className="font-medium text-yellow-100">
+                  Product data could not be loaded.
+                </p>
+                <p className="text-xs text-yellow-200/80">{dbErrorMessage}</p>
+              </div>
+            </div>
+          )}
+
           {/* Search & Controls */}
           <div className="flex flex-col sm:flex-row gap-3 mb-6">
             <div className="relative flex-1">

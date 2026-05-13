@@ -13,26 +13,31 @@ export const metadata: Metadata = {
     "Browse all handmade crochet keychains, bag charms, phone charms, and mini bouquets. Shop premium handcrafted accessories.",
 };
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
-async function getAllProducts(): Promise<Product[]> {
+async function getAllProducts(): Promise<{ products: Product[]; error: string | null }> {
   try {
     const rows = await db
       .select()
       .from(products)
       .orderBy(desc(products.createdAt));
-    return rows.map(toProduct);
-  } catch {
-    return [];
+    return { products: rows.map(toProduct), error: null };
+  } catch (error: any) {
+    return {
+      products: [],
+      error:
+        error?.message ||
+        "Failed to load products. Check the database connection and schema.",
+    };
   }
 }
 
 export default async function ShopPage() {
-  const allProducts = await getAllProducts();
+  const { products: allProducts, error: dbErrorMessage } = await getAllProducts();
 
   return (
     <Suspense>
-      <ShopClient products={allProducts} />
+      <ShopClient products={allProducts} dbErrorMessage={dbErrorMessage} />
     </Suspense>
   );
 }
