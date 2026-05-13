@@ -9,7 +9,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
   const resolvedParams = await params;
   
   if (process.env.POSTGRES_URL) {
-    const result = await db.select().from(products).where(eq(products.id, resolvedParams.id)).limit(1);
+    const result = await db.select().from(products).where(eq(products.id, Number(resolvedParams.id))).limit(1);
     product = result[0];
   }
 

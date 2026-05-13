@@ -5,6 +5,7 @@ import { products } from "@/db/schema";
 import { desc } from "drizzle-orm";
 import { ShopClient } from "@/components/shop-client";
 import type { Product } from "@/lib/types";
+import { toProduct } from "@/lib/product-mapper";
 
 export const metadata: Metadata = {
   title: "Shop – Handmade Crochet Accessories",
@@ -20,18 +21,7 @@ async function getAllProducts(): Promise<Product[]> {
       .select()
       .from(products)
       .orderBy(desc(products.createdAt));
-    return rows.map((r) => ({
-      ...r,
-      price: Number(r.price),
-      discountedPrice: r.discountedPrice ? Number(r.discountedPrice) : null,
-      slug: r.id,
-      isFeatured: false,
-      isNewArrival: false,
-      isTrending: false,
-      images: [],
-      colors: [],
-      tags: [],
-    }));
+    return rows.map(toProduct);
   } catch {
     return [];
   }

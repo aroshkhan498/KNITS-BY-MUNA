@@ -1,4 +1,4 @@
-import { pgTable, text, decimal, boolean, timestamp, integer } from 'drizzle-orm/pg-core';
+import { pgTable, text, decimal, boolean, timestamp, integer, serial } from 'drizzle-orm/pg-core';
 import { createId } from '@paralleldrive/cuid2';
 
 // Categories Table
@@ -15,7 +15,7 @@ export const categories = pgTable('categories', {
 
 // Products Table
 export const products = pgTable('products', {
-  id: text('id').primaryKey().$defaultFn(() => createId()),
+  id: serial('id').primaryKey(),
   title: text('title').notNull(),
   description: text('description').notNull(),
   price: decimal('price', { precision: 10, scale: 2 }).notNull(),
@@ -33,7 +33,7 @@ export const products = pgTable('products', {
 // Product Images Table (Supporting multiple images per product)
 export const productImages = pgTable('product_images', {
   id: text('id').primaryKey().$defaultFn(() => createId()),
-  productId: text('product_id').references(() => products.id, { onDelete: 'cascade' }).notNull(),
+  productId: integer('product_id').references(() => products.id, { onDelete: 'cascade' }).notNull(),
   imageUrl: text('image_url').notNull(),
   sortOrder: integer('sort_order').default(0).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -55,7 +55,7 @@ export const inquiries = pgTable('inquiries', {
   customerName: text('customer_name').notNull(),
   customerPhone: text('customer_phone'),
   message: text('message').notNull(),
-  productId: text('product_id').references(() => products.id),
+  productId: integer('product_id').references(() => products.id),
   status: text('status').default('new').notNull(), // new, read, replied
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });

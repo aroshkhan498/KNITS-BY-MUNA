@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm";
 
 export async function saveProduct(formData: FormData) {
   try {
-    if (!process.env.POSTGRES_URL) {
+    if (!process.env.POSTGRES_URL && !process.env.POSTGRES_URL_NON_POOLING) {
       return { error: "Database is not configured. Add POSTGRES_URL before saving products." };
     }
 
@@ -47,7 +47,7 @@ export async function saveProduct(formData: FormData) {
       };
       if (imageUrl) updateData.imageUrl = imageUrl;
 
-      await db.update(products).set(updateData).where(eq(products.id, id));
+      await db.update(products).set(updateData).where(eq(products.id, Number(id)));
     } else {
       if (!imageUrl) {
         return { error: "Please choose a real product image before saving." };
@@ -75,11 +75,11 @@ export async function saveProduct(formData: FormData) {
 
 export async function deleteProduct(id: string) {
   try {
-    if (!process.env.POSTGRES_URL) {
+    if (!process.env.POSTGRES_URL && !process.env.POSTGRES_URL_NON_POOLING) {
       return { error: "Database is not configured. Add POSTGRES_URL before deleting products." };
     }
 
-    await db.delete(products).where(eq(products.id, id));
+    await db.delete(products).where(eq(products.id, Number(id)));
     revalidatePath("/");
     revalidatePath("/shop");
     revalidatePath("/admin");

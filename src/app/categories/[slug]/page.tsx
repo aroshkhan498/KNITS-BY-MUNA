@@ -5,6 +5,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ProductSection } from "@/components/product-section";
 import type { Product } from "@/lib/types";
+import { toProduct } from "@/lib/product-mapper";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -57,18 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 async function getCategoryProducts(categorySlug: string): Promise<Product[]> {
   try {
     const rows = await db.select().from(products);
-    return rows.map((r) => ({
-      ...r,
-      price: Number(r.price),
-      discountedPrice: r.discountedPrice ? Number(r.discountedPrice) : null,
-      slug: r.id,
-      isFeatured: false,
-      isNewArrival: false,
-      isTrending: false,
-      images: [r.imageUrl],
-      colors: [],
-      tags: [categorySlug],
-    }));
+    return rows.map((row) => ({ ...toProduct(row), tags: [categorySlug] }));
   } catch {
     return [];
   }

@@ -10,6 +10,7 @@ import { CategoriesSection } from "@/components/categories-section";
 import { InstagramSection } from "@/components/instagram-section";
 import { CTABanner } from "@/components/cta-banner";
 import type { Product } from "@/lib/types";
+import { toProduct } from "@/lib/product-mapper";
 
 export const metadata: Metadata = {
   title: "Knits by Muna – Handmade Crochet Accessories",
@@ -25,18 +26,7 @@ async function getProducts(): Promise<Product[]> {
       .select()
       .from(products)
       .orderBy(desc(products.createdAt));
-    return rows.map((r) => ({
-      ...r,
-      price: Number(r.price),
-      discountedPrice: r.discountedPrice ? Number(r.discountedPrice) : null,
-      slug: r.id,
-      isFeatured: false,
-      isNewArrival: false,
-      isTrending: false,
-      images: [],
-      colors: [],
-      tags: [],
-    }));
+    return rows.map(toProduct);
   } catch {
     return [];
   }

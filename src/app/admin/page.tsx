@@ -127,7 +127,7 @@ export default async function AdminDashboard() {
                             {product.title}
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            ID: {product.id.slice(0, 8)}...
+                            ID: {String(product.id)}
                           </p>
                         </div>
                       </div>
@@ -167,7 +167,7 @@ export default async function AdminDashboard() {
                         >
                           Edit
                         </Link>
-                        <AdminDeleteButton productId={product.id} />
+                        <AdminDeleteButton productId={String(product.id)} />
                       </div>
                     </td>
                   </tr>

@@ -5,6 +5,7 @@ import { products } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { ProductDetailClient } from "@/components/product-detail-client";
 import type { Product } from "@/lib/types";
+import { toProduct } from "@/lib/product-mapper";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
@@ -15,22 +16,10 @@ async function getProduct(slug: string): Promise<Product | null> {
     const rows = await db
       .select()
       .from(products)
-      .where(eq(products.id, slug))
+      .where(eq(products.id, Number(slug)))
       .limit(1);
     if (rows.length === 0) return null;
-    const r = rows[0];
-    return {
-      ...r,
-      price: Number(r.price),
-      discountedPrice: r.discountedPrice ? Number(r.discountedPrice) : null,
-      slug: r.id,
-      isFeatured: false,
-      isNewArrival: false,
-      isTrending: false,
-      images: [r.imageUrl],
-      colors: [],
-      tags: [],
-    };
+    return toProduct(rows[0]);
   } catch {
     return null;
   }
@@ -61,20 +50,9 @@ export default async function ProductPage({ params }: Props) {
   try {
     const rows = await db.select().from(products).limit(4);
     related = rows
-      .filter((r) => r.id !== product.id)
+      .filter((r) => String(r.id) !== product.id)
       .slice(0, 4)
-      .map((r) => ({
-        ...r,
-        price: Number(r.price),
-        discountedPrice: r.discountedPrice ? Number(r.discountedPrice) : null,
-        slug: r.id,
-        isFeatured: false,
-        isNewArrival: false,
-        isTrending: false,
-        images: [r.imageUrl],
-        colors: [],
-        tags: [],
-      }));
+      .map(toProduct);
   } catch {
     related = [];
   }
