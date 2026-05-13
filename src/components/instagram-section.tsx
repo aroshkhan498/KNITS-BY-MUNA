@@ -3,7 +3,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { Instagram, ExternalLink, Heart } from "lucide-react";
+import { ExternalLink, Heart } from "lucide-react";
+import { InstagramIcon } from "@/components/icons/social";
 
 // Use actual product images from /public
 const GALLERY_IMAGES = [
@@ -49,7 +50,7 @@ export function InstagramSection() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl border border-secondary/40 text-secondary hover:bg-secondary/10 hover:border-secondary/60 transition-all duration-300 text-sm font-medium"
           >
-            <Instagram className="h-4 w-4" />
+            <InstagramIcon className="h-4 w-4" />
             @knitsbymuna
             <ExternalLink className="h-3 w-3 opacity-60" />
           </a>

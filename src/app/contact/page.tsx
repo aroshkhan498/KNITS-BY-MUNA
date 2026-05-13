@@ -4,7 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { MessageCircle, Instagram, Mail, MapPin, Send, CheckCircle } from "lucide-react";
+import { MessageCircle, Mail, MapPin, Send, CheckCircle } from "lucide-react";
+import { InstagramIcon } from "@/components/icons/social";
 import { toast } from "sonner";
 
 export default function ContactPage() {
@@ -67,7 +68,7 @@ export default function ContactPage() {
                       bg: "bg-primary/10 border-primary/30",
                     },
                     {
-                      icon: Instagram,
+                      icon: InstagramIcon,
                       label: "Instagram DM",
                       value: "@knitsbymuna",
                       href: "https://ig.me/m/knitsbymuna",

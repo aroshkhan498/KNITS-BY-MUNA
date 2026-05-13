@@ -1,13 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Instagram,
-  Facebook,
-  Heart,
-  Mail,
-  MapPin,
-  ExternalLink,
-} from "lucide-react";
+import { Heart, Mail, MapPin, ExternalLink } from "lucide-react";
+import { FacebookIcon, InstagramIcon } from "@/components/icons/social";
 
 const footerLinks = {
   shop: [
@@ -78,7 +72,7 @@ export function Footer() {
                 aria-label="Follow on Instagram"
                 className="flex items-center justify-center h-10 w-10 rounded-xl border border-border hover:border-primary/50 hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 group"
               >
-                <Instagram className="h-5 w-5" />
+                <InstagramIcon className="h-5 w-5" />
               </a>
               <a
                 href="https://www.facebook.com/knitsbymuna"
@@ -87,7 +81,7 @@ export function Footer() {
                 aria-label="Follow on Facebook"
                 className="flex items-center justify-center h-10 w-10 rounded-xl border border-border hover:border-secondary/50 hover:bg-secondary/10 text-muted-foreground hover:text-secondary transition-all duration-300"
               >
-                <Facebook className="h-5 w-5" />
+                <FacebookIcon className="h-5 w-5" />
               </a>
               <a
                 href="https://m.me/knitsbymuna"

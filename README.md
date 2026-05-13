@@ -4,6 +4,8 @@ A visually stunning, lightweight, and modern e-commerce storefront designed for 
 
 Built specifically to operate optimally and indefinitely on the **Vercel Free Tier**, featuring an edge-optimized setup, client-cached checkout flows, Supabase PostgreSQL support, and automated direct order generation via **Facebook Messenger / Instagram DMs** without server-heavy transaction gateways.
 
+**New to deployment?** Follow the step-by-step guide: **[VERCEL_DEPLOY.md](./VERCEL_DEPLOY.md)** (GitHub → Supabase tables → Vercel env vars → deploy).
+
 ---
 
 ## ✨ Features & Visual Excellence

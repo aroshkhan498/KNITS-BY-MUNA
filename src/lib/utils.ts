@@ -42,3 +42,5 @@ export function generateInstagramDMUrl(message: string): string {
   const encoded = encodeURIComponent(message);
   return `https://ig.me/m/knitsbymuna?text=${encoded}`;
 }
+
+export { generateOrderMessage } from "./types";

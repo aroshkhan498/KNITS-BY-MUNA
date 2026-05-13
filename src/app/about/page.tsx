@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Heart, Sparkles, Instagram, Facebook, MessageCircle } from "lucide-react";
+import { Heart, Sparkles, MessageCircle } from "lucide-react";
+import { FacebookIcon, InstagramIcon } from "@/components/icons/social";
 
 export const metadata: Metadata = {
   title: "About – Knits by Muna",
@@ -149,7 +150,7 @@ export default function AboutPage() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-6 py-3 rounded-xl border border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 transition-all font-medium"
                 >
-                  <Instagram className="h-5 w-5" />
+                  <InstagramIcon className="h-5 w-5" />
                   Instagram
                 </a>
                 <a
@@ -158,7 +159,7 @@ export default function AboutPage() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-6 py-3 rounded-xl border border-secondary/30 bg-secondary/10 text-secondary hover:bg-secondary/20 transition-all font-medium"
                 >
-                  <Facebook className="h-5 w-5" />
+                  <FacebookIcon className="h-5 w-5" />
                   Facebook
                 </a>
                 <a
