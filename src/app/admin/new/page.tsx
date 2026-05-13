@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { categories } from "@/db/schema";
 import { asc } from "drizzle-orm";
 import { ProductForm } from "@/components/product-form";
+import { CATEGORY_CATALOG } from "@/lib/categories";
 
 export default async function NewProductPage() {
   let categoryList: any[] = [];
@@ -12,6 +13,16 @@ export default async function NewProductPage() {
     } catch {
       categoryList = [];
     }
+  }
+
+  if (categoryList.length === 0) {
+    categoryList = CATEGORY_CATALOG.map((category, index) => ({
+      id: category.slug,
+      name: category.name,
+      slug: category.slug,
+      description: category.description,
+      sortOrder: index,
+    }));
   }
 
   return (

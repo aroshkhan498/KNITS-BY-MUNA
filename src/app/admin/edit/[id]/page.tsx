@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { categories, products } from "@/db/schema";
 import { asc, eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
+import { CATEGORY_CATALOG } from "@/lib/categories";
 
 export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   let product = null;
@@ -17,6 +18,16 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
       categoryList = await db.select().from(categories).orderBy(asc(categories.sortOrder), asc(categories.name));
     } catch {
       categoryList = [];
+    }
+
+    if (categoryList.length === 0) {
+      categoryList = CATEGORY_CATALOG.map((category, index) => ({
+        id: category.slug,
+        name: category.name,
+        slug: category.slug,
+        description: category.description,
+        sortOrder: index,
+      }));
     }
   }
 

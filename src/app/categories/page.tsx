@@ -3,6 +3,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import Link from "next/link";
 import { ArrowLeft, Grid3X3 } from "lucide-react";
+import { CATEGORY_CATALOG } from "@/lib/categories";
 
 export const metadata: Metadata = {
   title: "Categories – Knits by Muna",
@@ -10,62 +11,25 @@ export const metadata: Metadata = {
     "Browse all handmade crochet product categories — keychains, bag charms, phone charms, bouquets, and more.",
 };
 
-const CATEGORIES = [
-  {
-    slug: "keychains",
-    name: "Crochet Keychains",
-    emoji: "🔑",
-    description:
-      "Adorable handmade keychains in various flower, fruit, and character designs. Perfect for bags, keys, and gifts.",
-    color: "border-primary/30 from-primary/10 to-primary/5",
-    glow: "hover:shadow-[0_0_30px_oklch(0.72_0.25_320/0.2)]",
-  },
-  {
-    slug: "bag-charms",
-    name: "Bag Charms",
-    emoji: "👜",
-    description:
-      "Beautiful crochet bag accessories that add a unique touch to your handbag, backpack, or tote.",
-    color: "border-secondary/30 from-secondary/10 to-secondary/5",
-    glow: "hover:shadow-[0_0_30px_oklch(0.65_0.22_255/0.2)]",
-  },
-  {
-    slug: "phone-charms",
-    name: "Phone Charms",
-    emoji: "📱",
-    description:
-      "Tiny crochet charms to attach to your phone strap or phone case. Make your phone one-of-a-kind.",
-    color: "border-accent/30 from-accent/10 to-accent/5",
-    glow: "hover:shadow-[0_0_30px_oklch(0.68_0.2_290/0.2)]",
-  },
-  {
-    slug: "mini-bouquets",
-    name: "Mini Bouquets",
-    emoji: "💐",
-    description:
-      "Everlasting handmade floral arrangements. Perfect for home décor, gifts, and special occasions.",
-    color: "border-primary/20 from-primary/5 to-secondary/5",
-    glow: "hover:shadow-[0_0_30px_oklch(0.72_0.25_320/0.15)]",
-  },
-  {
-    slug: "home-decor",
-    name: "Home Décor",
-    emoji: "🏠",
-    description:
-      "Handmade crochet decorations to add warmth and character to your living spaces.",
-    color: "border-secondary/20 from-secondary/5 to-accent/5",
-    glow: "hover:shadow-[0_0_30px_oklch(0.65_0.22_255/0.15)]",
-  },
-  {
-    slug: "gift-sets",
-    name: "Gift Sets",
-    emoji: "🎁",
-    description:
-      "Curated crochet gift collections, perfect for birthdays, Eid, anniversaries, and any celebration.",
-    color: "border-accent/20 from-accent/5 to-primary/5",
-    glow: "hover:shadow-[0_0_30px_oklch(0.68_0.2_290/0.15)]",
-  },
-];
+const CATEGORIES = CATEGORY_CATALOG.map((category, index) => ({
+  ...category,
+  color: [
+    "border-primary/30 from-primary/10 to-primary/5",
+    "border-secondary/30 from-secondary/10 to-secondary/5",
+    "border-accent/30 from-accent/10 to-accent/5",
+    "border-primary/20 from-primary/5 to-secondary/5",
+    "border-secondary/20 from-secondary/5 to-accent/5",
+    "border-accent/20 from-accent/5 to-primary/5",
+  ][index % 6],
+  glow: [
+    "hover:shadow-[0_0_30px_oklch(0.72_0.25_320/0.2)]",
+    "hover:shadow-[0_0_30px_oklch(0.65_0.22_255/0.2)]",
+    "hover:shadow-[0_0_30px_oklch(0.68_0.2_290/0.2)]",
+    "hover:shadow-[0_0_30px_oklch(0.72_0.25_320/0.15)]",
+    "hover:shadow-[0_0_30px_oklch(0.65_0.22_255/0.15)]",
+    "hover:shadow-[0_0_30px_oklch(0.68_0.2_290/0.15)]",
+  ][index % 6],
+}));
 
 export default function CategoriesPage() {
   return (

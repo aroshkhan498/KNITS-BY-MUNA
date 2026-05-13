@@ -3,65 +3,39 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { CATEGORY_CATALOG } from "@/lib/categories";
 
-const CATEGORIES = [
-  {
-    id: "keychains",
-    name: "Keychains",
-    emoji: "🔑",
-    href: "/categories/keychains",
-    gradient: "from-primary/20 to-primary/5",
-    border: "border-primary/30",
-    glow: "hover:shadow-[0_0_30px_oklch(0.72_0.25_320/0.3)]",
-  },
-  {
-    id: "bag-charms",
-    name: "Bag Charms",
-    emoji: "👜",
-    href: "/categories/bag-charms",
-    gradient: "from-secondary/20 to-secondary/5",
-    border: "border-secondary/30",
-    glow: "hover:shadow-[0_0_30px_oklch(0.65_0.22_255/0.3)]",
-  },
-  {
-    id: "phone-charms",
-    name: "Phone Charms",
-    emoji: "📱",
-    href: "/categories/phone-charms",
-    gradient: "from-accent/20 to-accent/5",
-    border: "border-accent/30",
-    glow: "hover:shadow-[0_0_30px_oklch(0.68_0.2_290/0.3)]",
-  },
-  {
-    id: "bouquets",
-    name: "Mini Bouquets",
-    emoji: "💐",
-    href: "/categories/mini-bouquets",
-    gradient: "from-primary/20 to-secondary/5",
-    border: "border-primary/20",
-    glow: "hover:shadow-[0_0_30px_oklch(0.72_0.25_320/0.25)]",
-  },
-  {
-    id: "home-decor",
-    name: "Home Décor",
-    emoji: "🏠",
-    href: "/categories/home-decor",
-    gradient: "from-secondary/20 to-accent/5",
-    border: "border-secondary/20",
-    glow: "hover:shadow-[0_0_30px_oklch(0.65_0.22_255/0.25)]",
-  },
-  {
-    id: "gift-sets",
-    name: "Gift Sets",
-    emoji: "🎁",
-    href: "/categories/gift-sets",
-    gradient: "from-accent/20 to-primary/5",
-    border: "border-accent/20",
-    glow: "hover:shadow-[0_0_30px_oklch(0.68_0.2_290/0.25)]",
-  },
-];
+const CATEGORIES = CATEGORY_CATALOG.map((category, index) => ({
+  id: category.slug,
+  name: category.name,
+  emoji: category.emoji,
+  href: `/categories/${category.slug}`,
+  gradient: [
+    "from-primary/20 to-primary/5",
+    "from-secondary/20 to-secondary/5",
+    "from-accent/20 to-accent/5",
+    "from-primary/20 to-secondary/5",
+    "from-secondary/20 to-accent/5",
+    "from-accent/20 to-primary/5",
+  ][index % 6],
+  border: [
+    "border-primary/30",
+    "border-secondary/30",
+    "border-accent/30",
+    "border-primary/20",
+    "border-secondary/20",
+    "border-accent/20",
+  ][index % 6],
+  glow: [
+    "hover:shadow-[0_0_30px_oklch(0.72_0.25_320/0.3)]",
+    "hover:shadow-[0_0_30px_oklch(0.65_0.22_255/0.3)]",
+    "hover:shadow-[0_0_30px_oklch(0.68_0.2_290/0.3)]",
+    "hover:shadow-[0_0_30px_oklch(0.72_0.25_320/0.25)]",
+    "hover:shadow-[0_0_30px_oklch(0.65_0.22_255/0.25)]",
+    "hover:shadow-[0_0_30px_oklch(0.68_0.2_290/0.25)]",
+  ][index % 6],
+}));
 
 export function CategoriesSection() {
   const ref = useRef(null);
