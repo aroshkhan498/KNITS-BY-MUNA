@@ -75,7 +75,7 @@ export function Footer() {
                 <InstagramIcon className="h-5 w-5" />
               </a>
               <a
-                href="https://www.facebook.com/knitsbymuna"
+                href="https://www.facebook.com/profile.php?id=61588396945080"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow on Facebook"
@@ -84,7 +84,7 @@ export function Footer() {
                 <FacebookIcon className="h-5 w-5" />
               </a>
               <a
-                href="https://m.me/knitsbymuna"
+                href="https://m.me/61588396945080"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Message on Messenger"

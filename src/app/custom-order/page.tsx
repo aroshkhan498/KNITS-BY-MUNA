@@ -64,7 +64,7 @@ ${form.description}
 Thank you! 🌺`;
 
     const encoded = encodeURIComponent(msg);
-    window.open(`https://m.me/knitsbymuna?text=${encoded}`, "_blank");
+    window.open(`https://m.me/61588396945080?text=${encoded}`, "_blank");
     setSubmitted(true);
     toast.success("Custom order request sent via Messenger!");
   };

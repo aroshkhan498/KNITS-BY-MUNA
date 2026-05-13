@@ -21,7 +21,7 @@ export default function ContactPage() {
     // Generate a messenger message for the inquiry
     const msg = `Hi Knits by Muna!\n\nMy name is ${form.name}.\nEmail: ${form.email}\n\n${form.message}`;
     const encoded = encodeURIComponent(msg);
-    window.open(`https://m.me/knitsbymuna?text=${encoded}`, "_blank");
+    window.open(`https://m.me/61588396945080?text=${encoded}`, "_blank");
     setSubmitted(true);
     toast.success("Opening Messenger with your message!");
   };
@@ -62,8 +62,8 @@ export default function ContactPage() {
                     {
                       icon: MessageCircle,
                       label: "Facebook Messenger",
-                      value: "m.me/knitsbymuna",
-                      href: "https://m.me/knitsbymuna",
+                      value: "m.me/61588396945080",
+                      href: "https://m.me/61588396945080",
                       color: "text-primary",
                       bg: "bg-primary/10 border-primary/30",
                     },

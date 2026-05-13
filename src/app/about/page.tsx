@@ -154,7 +154,7 @@ export default function AboutPage() {
                   Instagram
                 </a>
                 <a
-                  href="https://www.facebook.com/knitsbymuna"
+                  href="https://www.facebook.com/profile.php?id=61588396945080"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-6 py-3 rounded-xl border border-secondary/30 bg-secondary/10 text-secondary hover:bg-secondary/20 transition-all font-medium"
@@ -163,7 +163,7 @@ export default function AboutPage() {
                   Facebook
                 </a>
                 <a
-                  href="https://m.me/knitsbymuna"
+                  href="https://m.me/61588396945080"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-6 py-3 rounded-xl border border-accent/30 bg-accent/10 text-accent hover:bg-accent/20 transition-all font-medium"

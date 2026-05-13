@@ -35,7 +35,7 @@ export function truncate(str: string, length: number): string {
 export function generateMessengerUrl(message: string): string {
   const encoded = encodeURIComponent(message);
   // Facebook Page Messenger link for Knits by Muna
-  return `https://m.me/knitsbymuna?text=${encoded}`;
+  return `https://m.me/61588396945080?text=${encoded}`;
 }
 
 export function generateInstagramDMUrl(message: string): string {
