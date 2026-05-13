@@ -24,6 +24,7 @@ export type Product = {
   isFeatured: boolean;
   isNewArrival: boolean;
   isTrending: boolean;
+  rating?: number;
   colors?: string[];
   tags?: string[];
   createdAt?: Date;

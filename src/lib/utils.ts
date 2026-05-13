@@ -43,4 +43,20 @@ export function generateInstagramDMUrl(message: string): string {
   return `https://ig.me/m/knitsbymuna?text=${encoded}`;
 }
 
+export function shuffle<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+export function generateRandomRating(): number {
+  // Generate a random rating between 4.0 and 5.0 with 1 decimal place
+  const min = 4.0;
+  const max = 5.0;
+  return Math.round((Math.random() * (max - min) + min) * 10) / 10;
+}
+
 export { generateOrderMessage } from "./types";

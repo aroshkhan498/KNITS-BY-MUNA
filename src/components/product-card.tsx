@@ -166,11 +166,11 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
                   key={i}
                   className={cn(
                     "h-3 w-3",
-                    i < 5 ? "fill-primary text-primary" : "text-muted-foreground"
+                    i < Math.round(product.rating ?? 5) ? "fill-primary text-primary" : "text-muted-foreground"
                   )}
                 />
               ))}
-              <span className="text-xs text-muted-foreground ml-1">(5.0)</span>
+              <span className="text-xs text-muted-foreground ml-1">({product.rating ?? 5.0})</span>
             </div>
 
             <h3 className="font-heading font-semibold text-base leading-tight mb-1 line-clamp-1 text-foreground">

@@ -11,6 +11,7 @@ import { InstagramSection } from "@/components/instagram-section";
 import { CTABanner } from "@/components/cta-banner";
 import type { Product } from "@/lib/types";
 import { toProduct } from "@/lib/product-mapper";
+import { shuffle } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Knits by Muna – Handmade Crochet Accessories",
@@ -43,13 +44,16 @@ export default async function Home() {
     .slice(0, 8);
 
   // Fallback: use sample products if DB returns nothing special
-  const displayFeatured =
-    featured.length > 0 ? featured : allProducts.slice(0, 8);
-  const displayNew =
-    newArrivals.length > 0 ? newArrivals : allProducts.slice(0, 4);
-  const displayTrending =
-    trending.length > 0 ? trending : allProducts.slice(0, 4);
-  const displaySale = onSale.length > 0 ? onSale : [];
+  const displayFeatured = shuffle(
+    featured.length > 0 ? featured : allProducts.slice(0, 8)
+  );
+  const displayNew = shuffle(
+    newArrivals.length > 0 ? newArrivals : allProducts.slice(0, 4)
+  );
+  const displayTrending = shuffle(
+    trending.length > 0 ? trending : allProducts.slice(0, 4)
+  );
+  const displaySale = shuffle(onSale.length > 0 ? onSale : []);
 
   return (
     <>
