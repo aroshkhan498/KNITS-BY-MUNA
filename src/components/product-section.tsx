@@ -20,6 +20,7 @@ export function ProductSection({
   title,
   subtitle,
   products,
+  fallbackProducts,
   viewAllHref = "/shop",
   accentColor = "primary",
 }: ProductSectionProps) {
