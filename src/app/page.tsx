@@ -88,7 +88,7 @@ export default async function Home() {
         )}
 
         {/* Trending */}
-        {displayTrending.length > 0 && (
+        {false && (
           <ProductSection
             title="Trending Now"
             subtitle="Most popular picks this season"

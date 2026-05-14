@@ -6,8 +6,8 @@ import Link from "next/link";
 import { ExternalLink, Heart } from "lucide-react";
 import { InstagramIcon } from "@/components/icons/social";
 
-// Use actual product images from /public
-const GALLERY_IMAGES = [
+// All available product images
+const ALL_PRODUCT_IMAGES = [
   "/WhatsApp Image 2026-05-04 at 3.00.17 AM.jpeg",
   "/WhatsApp Image 2026-05-04 at 3.00.02 AM (2).jpeg",
   "/WhatsApp Image 2026-05-04 at 3.00.11 AM (1).jpeg",
@@ -16,9 +16,16 @@ const GALLERY_IMAGES = [
   "/WhatsApp Image 2026-05-04 at 3.00.16 AM.jpeg",
 ];
 
+// Get 3 random images
+const getRandomImages = (images: string[], count: number) => {
+  const shuffled = [...images].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+};
+
 export function InstagramSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const galleryImages = getRandomImages(ALL_PRODUCT_IMAGES, 3);
 
   return (
     <section ref={ref} className="py-20 relative overflow-hidden">
@@ -57,7 +64,7 @@ export function InstagramSection() {
         </motion.div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
-          {GALLERY_IMAGES.map((src, i) => (
+          {galleryImages.map((src, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.95 }}
