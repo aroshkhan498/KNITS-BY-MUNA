@@ -108,33 +108,6 @@ export default function AboutPage() {
               ))}
             </div>
 
-            {/* Gallery from actual product photos */}
-            <div>
-              <h2 className="font-heading text-2xl font-bold gradient-text-blue text-center mb-8">
-                A Glimpse of Our Work
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {[
-                  "/WhatsApp Image 2026-05-04 at 3.00.04 AM.jpeg",
-                  "/WhatsApp Image 2026-05-04 at 3.00.07 AM (1).jpeg",
-                  "/WhatsApp Image 2026-05-04 at 3.00.13 AM.jpeg",
-                  "/WhatsApp Image 2026-05-04 at 3.00.17 AM (2).jpeg",
-                ].map((src, i) => (
-                  <div
-                    key={i}
-                    className="aspect-square rounded-xl overflow-hidden border border-border/50 hover:border-primary/40 transition-all group"
-                  >
-                    <img
-                      src={src}
-                      alt={`Knits by Muna handmade product ${i + 1}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* Social Links */}
             <div className="mt-20 text-center glass-card rounded-3xl p-10 border border-primary/20">
               <h2 className="font-heading text-3xl font-bold gradient-text-pink mb-3">
