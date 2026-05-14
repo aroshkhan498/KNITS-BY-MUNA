@@ -83,8 +83,8 @@ export function Navbar() {
                   priority
                 />
               </div>
-              <span className="font-playball text-2xl md:text-3xl tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary drop-shadow-[0_0_8px_rgba(var(--primary),0.5)] hidden sm:block">
-                KNITS BY MUNA
+              <span className="font-heading font-bold text-lg md:text-2xl tracking-wide gradient-text-pink drop-shadow hidden sm:block">
+                Knits by Muna
               </span>
             </Link>
 

@@ -10,8 +10,8 @@ export function Header() {
           <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-primary/50 group-hover:border-primary transition-colors shadow-[0_0_15px_rgba(var(--primary),0.3)] group-hover:shadow-[0_0_25px_rgba(var(--primary),0.6)]">
             <Image src="/logo.png" alt="Knits by Muna Logo" fill className="object-cover" />
           </div>
-          <span className="font-playball text-3xl tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary drop-shadow-[0_0_8px_rgba(var(--primary),0.5)]">
-            KNITS BY MUNA
+          <span className="font-outfit font-bold text-2xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary drop-shadow-[0_0_8px_rgba(var(--primary),0.5)]">
+            Knits by Muna
           </span>
         </Link>
         <div className="flex items-center gap-4">
