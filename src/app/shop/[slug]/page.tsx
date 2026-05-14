@@ -5,6 +5,7 @@ import { products } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { ProductDetailClient } from "@/components/product-detail-client";
 import type { Product } from "@/lib/types";
+import { FALLBACK_PRODUCTS, getFallbackProductById } from "@/lib/fallback-products";
 import { toProduct } from "@/lib/product-mapper";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -18,10 +19,10 @@ async function getProduct(slug: string): Promise<Product | null> {
       .from(products)
       .where(eq(products.id, Number(slug)))
       .limit(1);
-    if (rows.length === 0) return null;
+    if (rows.length === 0) return getFallbackProductById(slug);
     return toProduct(rows[0]);
   } catch {
-    return null;
+    return getFallbackProductById(slug);
   }
 }
 
@@ -49,12 +50,14 @@ export default async function ProductPage({ params }: Props) {
   let related: Product[] = [];
   try {
     const rows = await db.select().from(products).limit(4);
-    related = rows
-      .filter((r) => String(r.id) !== product.id)
-      .slice(0, 4)
-      .map(toProduct);
+    related = rows.length > 0
+      ? rows
+          .filter((r) => String(r.id) !== product.id)
+          .slice(0, 4)
+          .map(toProduct)
+      : FALLBACK_PRODUCTS.filter((item) => item.id !== product.id).slice(0, 4);
   } catch {
-    related = [];
+    related = FALLBACK_PRODUCTS.filter((item) => item.id !== product.id).slice(0, 4);
   }
 
   return (

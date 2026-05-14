@@ -5,6 +5,7 @@ import { products } from "@/db/schema";
 import { desc } from "drizzle-orm";
 import { ShopClient } from "@/components/shop-client";
 import type { Product } from "@/lib/types";
+import { FALLBACK_PRODUCTS } from "@/lib/fallback-products";
 import { toProduct } from "@/lib/product-mapper";
 
 export const metadata: Metadata = {
@@ -34,10 +35,11 @@ async function getAllProducts(): Promise<{ products: Product[]; error: string | 
 
 export default async function ShopPage() {
   const { products: allProducts, error: dbErrorMessage } = await getAllProducts();
+  const displayProducts = allProducts.length > 0 ? allProducts : FALLBACK_PRODUCTS;
 
   return (
     <Suspense>
-      <ShopClient products={allProducts} dbErrorMessage={dbErrorMessage} />
+      <ShopClient products={displayProducts} dbErrorMessage={dbErrorMessage} />
     </Suspense>
   );
 }

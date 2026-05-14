@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { db } from "@/db";
 import { products } from "@/db/schema";
-import { desc, eq } from "drizzle-orm";
+import { desc } from "drizzle-orm";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { HeroSection } from "@/components/hero-section";
@@ -10,6 +10,7 @@ import { InstagramSection } from "@/components/instagram-section";
 import { CTABanner } from "@/components/cta-banner";
 import { Testimonials } from "@/components/testimonials";
 import type { Product } from "@/lib/types";
+import { FALLBACK_PRODUCTS } from "../lib/fallback-products";
 import { toProduct } from "@/lib/product-mapper";
 import { shuffle } from "@/lib/utils";
 
@@ -35,25 +36,29 @@ async function getProducts(): Promise<Product[]> {
 
 export default async function Home() {
   const allProducts = await getProducts();
+  const sourceProducts: Product[] =
+    allProducts.length > 0 ? allProducts : FALLBACK_PRODUCTS;
 
-  const featured = allProducts.filter((p) => p.isFeatured).slice(0, 8);
-  const newArrivals = allProducts.filter((p) => p.isNewArrival).slice(0, 8);
-  const trending = allProducts.filter((p) => p.isTrending).slice(0, 8);
-  const onSale = allProducts
+  const featured = sourceProducts.filter((p) => p.isFeatured).slice(0, 8);
+  const newArrivals = sourceProducts.filter((p) => p.isNewArrival).slice(0, 8);
+  const trending = sourceProducts.filter((p) => p.isTrending).slice(0, 8);
+  const onSale = sourceProducts
     .filter((p) => p.discountedPrice && Number(p.discountedPrice) < Number(p.price))
     .slice(0, 8);
 
   // Fallback: use sample products if DB returns nothing special
   const displayFeatured = shuffle(
-    featured.length > 0 ? featured : allProducts
+    featured.length > 0 ? featured : sourceProducts
   ).slice(0, 8);
   const displayNew = shuffle(
-    newArrivals.length > 0 ? newArrivals : allProducts.slice(0, 4)
+    newArrivals.length > 0 ? newArrivals : sourceProducts.slice(0, 4)
   );
   const displayTrending = shuffle(
-    trending.length > 0 ? trending : allProducts.slice(0, 4)
+    trending.length > 0 ? trending : sourceProducts.slice(0, 4)
   );
-  const displaySale = shuffle(onSale.length > 0 ? onSale : []);
+  const displaySale = shuffle(onSale.length > 0 ? onSale : sourceProducts.filter(
+    (p) => p.discountedPrice && Number(p.discountedPrice) < Number(p.price)
+  ));
 
   return (
     <>
@@ -68,7 +73,7 @@ export default async function Home() {
           title="Featured Items"
           subtitle="Our most loved crochet creations"
           products={displayFeatured}
-          fallbackProducts={shuffle(allProducts).slice(0, 8)}
+            fallbackProducts={shuffle(sourceProducts).slice(0, 8)}
           viewAllHref="/shop"
           accentColor="primary"
         />
