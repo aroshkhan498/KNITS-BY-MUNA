@@ -119,7 +119,7 @@ export default async function Home() {
         <Testimonials />
 
         {/* Instagram Gallery */}
-        <InstagramSection />
+        {false && <InstagramSection />}
       </main>
       <Footer />
     </>
