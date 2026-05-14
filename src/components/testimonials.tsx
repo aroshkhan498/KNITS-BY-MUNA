@@ -10,22 +10,12 @@ type Review = {
 };
 
 const REVIEWS: Review[] = [
-  {
-    id: "r1",
-    name: "ক্রান্তি",
-    text: "It’s really an amazing artistic effort.",
-    highlighted: true,
-  },
-  {
-    id: "r2",
-    name: "Umme Azra",
-    text: "Awww cute tooo",
-    highlighted: true,
-  },
-  { id: "r3", name: "Ayesha", text: "Absolutely love the quality and detail! 💕" },
-  { id: "r4", name: "Fatima", text: "Fast shipping and beautiful packaging — thank you!" },
-  { id: "r5", name: "Nusrat", text: "Perfect gift for my sister, she adored it." },
-  { id: "r6", name: "Sadia", text: "Colors are vibrant and the stitches are so neat." },
+  { id: "r1", name: "ক্রান্তি", text: "It’s really an amazing artistic effort."},
+  { id: "r2", name: "Umme Azra", text: "Awww cute " },
+  { id: "r3", name: "ক্রান্তি", text: "💖💖💖Amazing 😍! 💕" },
+  { id: "r4", name: "Anisha Haque", text: "Fast shipping and beautiful packaging — thank you!" },
+  { id: "r5", name: "Nabila Jahan", text: "Perfect gift for my sister, she adored it." },
+  { id: "r6", name: "Tasfia Ahmed", text: "Colors are vibrant and the stitches are so neat." },
 ];
 
 export function Testimonials() {
