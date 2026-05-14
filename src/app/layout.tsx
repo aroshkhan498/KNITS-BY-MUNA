@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Outfit, Playfair_Display } from "next/font/google";
 import { Toaster } from "sonner";
 import { CartProvider } from "@/components/cart-context";
 import { WishlistProvider } from "@/components/wishlist-context";
@@ -14,6 +14,12 @@ const inter = Inter({
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
   display: "swap",
 });
 
@@ -83,7 +89,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${outfit.variable}`}
+      className={`dark ${inter.variable} ${outfit.variable} ${playfair.variable}`}
       suppressHydrationWarning
     >
       <body
