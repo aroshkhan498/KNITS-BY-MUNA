@@ -69,7 +69,7 @@ export default async function Home() {
           subtitle="Our most loved crochet creations"
           products={displayFeatured}
           fallbackProducts={shuffle(allProducts).slice(0, 8)}
-          viewAllHref="/shop?filter=featured"
+          viewAllHref="/shop"
           accentColor="primary"
         />
 
@@ -81,7 +81,7 @@ export default async function Home() {
               title="New Arrivals"
               subtitle="Just dropped — fresh from our hands"
               products={displayNew}
-              viewAllHref="/shop?filter=new"
+              viewAllHref="/shop"
               accentColor="secondary"
             />
           </div>

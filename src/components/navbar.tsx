@@ -83,7 +83,7 @@ export function Navbar() {
                   priority
                 />
               </div>
-              <span className="font-playfair font-bold text-lg md:text-2xl tracking-widest gradient-text-pink drop-shadow hidden sm:block uppercase">
+              <span className="font-playfair font-bold text-base sm:text-lg md:text-2xl tracking-widest gradient-text-pink drop-shadow uppercase">
                 KNITS BY MUNA
               </span>
             </Link>
