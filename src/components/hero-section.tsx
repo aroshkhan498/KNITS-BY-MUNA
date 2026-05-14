@@ -149,7 +149,13 @@ export function HeroSection() {
                 ].map((stat) => (
                   <div
                     key={stat.label}
-                    className="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/30 px-4 py-4 text-left backdrop-blur-md"
+                    className="flex items-center gap-3 rounded-2xl border border-transparent bg-black/30 px-4 py-4 text-left backdrop-blur-md animate-neon-border"
+                    style={{
+                      background: "linear-gradient(oklch(0.12 0.015 270 / 0.8), oklch(0.12 0.015 270 / 0.8)) padding-box, linear-gradient(135deg, oklch(0.75 0.24 200 / 0.8), oklch(0.72 0.25 320 / 0.8), oklch(0.75 0.24 200 / 0.8)) border-box",
+                      borderWidth: "1px",
+                      backgroundSize: "100% 100%, 200% 200%",
+                      backgroundPosition: "0 0, 0% 0%",
+                    }}
                   >
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary shadow-[0_0_20px_oklch(0.72_0.25_320/0.2)]">
                       <stat.icon className="h-5 w-5" />
