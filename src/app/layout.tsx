@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Outfit, Playball, Cormorant_Garamond } from "next/font/google";
 import { Toaster } from "sonner";
 import { CartProvider } from "@/components/cart-context";
 import { WishlistProvider } from "@/components/wishlist-context";
@@ -14,6 +14,20 @@ const inter = Inter({
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
+  display: "swap",
+});
+
+const playball = Playball({
+  subsets: ["latin"],
+  variable: "--font-playball",
+  weight: "400",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+  weight: ["400", "600"],
   display: "swap",
 });
 
@@ -83,7 +97,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${outfit.variable}`}
+      className={`dark ${inter.variable} ${outfit.variable} ${playball.variable} ${cormorant.variable}`}
       suppressHydrationWarning
     >
       <body
