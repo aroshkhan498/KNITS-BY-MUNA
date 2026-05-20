@@ -32,9 +32,11 @@ export function Navbar() {
   const { items: cartItems } = useCart();
   const { count: wishlistCount } = useWishlist();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [mobileMenuPathname, setMobileMenuPathname] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const isMobileOpen = mobileMenuPathname === pathname;
 
   const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0);
 
@@ -43,10 +45,6 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    setIsMobileOpen(false);
-  }, [pathname]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,7 +71,7 @@ export function Navbar() {
         <div className="container mx-auto px-4">
           <div className="flex h-16 md:h-20 items-center justify-between gap-4">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group shrink-0">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0 min-w-0">
               <div className="relative h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-primary/50 group-hover:border-primary transition-all duration-300 animate-pulse-glow">
                 <Image
                   src="/logo.png"
@@ -83,7 +81,11 @@ export function Navbar() {
                   priority
                 />
               </div>
-              <span className="font-playfair font-bold text-base sm:text-lg md:text-2xl tracking-widest gradient-text-pink drop-shadow uppercase">
+              <span className="flex flex-col text-left font-playfair font-bold text-[0.7rem] leading-none tracking-[0.25em] gradient-text-pink drop-shadow uppercase sm:hidden">
+                <span>KNITS BY</span>
+                <span>MUNA</span>
+              </span>
+              <span className="hidden sm:inline font-playfair font-bold text-lg md:text-2xl tracking-widest gradient-text-pink drop-shadow uppercase min-w-0">
                 KNITS BY MUNA
               </span>
             </Link>
@@ -202,7 +204,9 @@ export function Navbar() {
 
               {/* Mobile menu toggle */}
               <button
-                onClick={() => setIsMobileOpen(!isMobileOpen)}
+                onClick={() =>
+                  setMobileMenuPathname((current) => (current === pathname ? null : pathname))
+                }
                 className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
                 aria-label="Toggle mobile menu"
                 id="navbar-mobile-menu-btn"
