@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -20,7 +20,23 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const { addItem } = useCart();
   const { isWishlisted, toggleItem } = useWishlist();
   const [isHovered, setIsHovered] = useState(false);
+  const [canHover, setCanHover] = useState(false);
   const [imgError, setImgError] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+    const updateCanHover = () => setCanHover(mediaQuery.matches);
+    updateCanHover();
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", updateCanHover);
+      return () => mediaQuery.removeEventListener("change", updateCanHover);
+    }
+
+    mediaQuery.addListener(updateCanHover);
+    return () => mediaQuery.removeListener(updateCanHover);
+  }, []);
 
   const currentPrice = Number(product.discountedPrice ?? product.price);
   const originalPrice = Number(product.price);
@@ -59,8 +75,8 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.08, ease: "easeOut" }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={canHover ? () => setIsHovered(true) : undefined}
+      onMouseLeave={canHover ? () => setIsHovered(false) : undefined}
       className="group relative"
     >
       <Link href={`/shop/${slug}`} className="block">
