@@ -28,7 +28,7 @@ function getFallbackProductForSlug(slug: string): Product {
   return FALLBACK_PRODUCTS[0];
 }
 
-const getProduct = cache(async (slug: string): Promise<Product | null> => {
+const getProduct = cache(async (slug: string): Promise<Product> => {
   try {
     const rows = await db
       .select()
