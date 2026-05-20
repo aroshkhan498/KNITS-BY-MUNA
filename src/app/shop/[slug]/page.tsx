@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { db } from "@/db";
 import { products } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -14,6 +13,21 @@ import { Suspense, cache } from "react";
 
 type Props = { params: Promise<{ slug: string }> };
 
+function getFallbackProductForSlug(slug: string): Product {
+  const directMatch = getFallbackProductById(slug);
+  if (directMatch) {
+    return directMatch;
+  }
+
+  const numericSlug = Number.parseInt(slug, 10);
+  if (!Number.isNaN(numericSlug) && FALLBACK_PRODUCTS.length > 0) {
+    const index = Math.abs(numericSlug - 1) % FALLBACK_PRODUCTS.length;
+    return FALLBACK_PRODUCTS[index];
+  }
+
+  return FALLBACK_PRODUCTS[0];
+}
+
 const getProduct = cache(async (slug: string): Promise<Product | null> => {
   try {
     const rows = await db
@@ -21,10 +35,10 @@ const getProduct = cache(async (slug: string): Promise<Product | null> => {
       .from(products)
       .where(eq(products.id, Number(slug)))
       .limit(1);
-    if (rows.length === 0) return getFallbackProductById(slug);
+    if (rows.length === 0) return getFallbackProductForSlug(slug);
     return toProduct(rows[0]);
   } catch {
-    return getFallbackProductById(slug);
+    return getFallbackProductForSlug(slug);
   }
 });
 
@@ -105,7 +119,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const product = await getProduct(slug);
-  if (!product) notFound();
 
   return (
     <>
