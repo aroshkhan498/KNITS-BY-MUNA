@@ -12,7 +12,6 @@ import {
   ChevronLeft,
   ChevronRight,
   MessageCircle,
-  Package,
   Truck,
   RefreshCw,
   Sparkles,
@@ -20,17 +19,15 @@ import {
 } from "lucide-react";
 import { useCart } from "./cart-context";
 import { useWishlist } from "./wishlist-context";
-import { ProductCard } from "./product-card";
 import { formatPrice, getDiscountPercent, generateMessengerUrl, generateOrderMessage } from "@/lib/utils";
 import { toast } from "sonner";
 import type { Product } from "@/lib/types";
 
 interface ProductDetailClientProps {
   product: Product;
-  related: Product[];
 }
 
-export function ProductDetailClient({ product, related }: ProductDetailClientProps) {
+export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const { addItem } = useCart();
   const { isWishlisted, toggleItem } = useWishlist();
 
@@ -38,7 +35,6 @@ export function ProductDetailClient({ product, related }: ProductDetailClientPro
   const [currentImg, setCurrentImg] = useState(0);
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] ?? "");
   const [quantity, setQuantity] = useState(1);
-  const [isZoomed, setIsZoomed] = useState(false);
   const [imgError, setImgError] = useState(false);
 
   const currentPrice = Number(product.discountedPrice ?? product.price);
@@ -376,22 +372,6 @@ export function ProductDetailClient({ product, related }: ProductDetailClientPro
         </div>
       </div>
 
-      {/* Related Products */}
-      {related.length > 0 && (
-        <div className="mt-24">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="h-1 w-12 rounded-full bg-gradient-to-r from-primary to-accent" />
-            <h2 className="font-heading text-2xl font-bold text-primary">
-              You May Also Like
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {related.map((p, i) => (
-              <ProductCard key={p.id} product={p} index={i} />
-            ))}
-          </div>
-        </div>
-      )}
     </main>
   );
 }
